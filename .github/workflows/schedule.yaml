@@ -20,6 +20,10 @@ jobs:
         with:
           python-version: '3.12' 
 
+      - name: 📦 Install uv globally
+        # Install the uv package so it can be called in the next step
+        run: pip install uv
+
       - name: 📦 Install dependencies (using uv)
         run: |
           uv sync
