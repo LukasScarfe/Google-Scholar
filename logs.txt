@@ -2,3 +2,8 @@ Resolved 68 packages in 0.83ms
 Audited 64 packages in 0.90ms
 Successfully created WIDE format file: citations_wide_format.csv
 CRITICAL ERROR during report generation: [Errno 13] Permission denied: 'top_10_citations_plot.png'
+[master e442c9c] Ran the code
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   8b153ce..e442c9c  master -> master
+Already up to date.
