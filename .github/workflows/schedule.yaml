@@ -1,0 +1,45 @@
+name: Daily Google Scholar Scrape
+
+on:
+  # Triggers the workflow every day at 14:00 UTC (roughly 7:00 AM PDT/PST)
+  schedule:
+    - cron: '48 18 * * *'
+  # Allows manual triggering from the Actions tab in GitHub
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' 
+
+      - name: 📦 Install dependencies (using uv)
+        run: |
+          uv sync
+
+      - name: 🚀 Run the scraper script
+        # This generates citations_history.csv
+        run: python scrape.py 
+
+      - name: 📊 Run the plotting script
+      # This generates top_10_citations_plot.png
+        run: python plotting.py
+
+      - name: 💾 Commit and Push results
+        # IMPORTANT: This commits the generated files back to your repository.
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '🤖 Automated update: data and plot'
+          # Commit both the data file and the plot image file
+          file_pattern: |
+            citations_history.csv
+            citations_wide_format.csv
+            top_10_citations_plot.png
+          branch: main
