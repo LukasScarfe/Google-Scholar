@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /home/lukas/Documents/code_to_run/Google-Scholar
+
 uv sync
 #uv run scrape.py
 uv run plotting.py
