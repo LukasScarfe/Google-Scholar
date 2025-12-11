@@ -1,4 +1,4 @@
-Resolved 68 packages in 0.85ms
-Audited 64 packages in 1ms
+Resolved 68 packages in 0.83ms
+Audited 64 packages in 0.90ms
 Successfully created WIDE format file: citations_wide_format.csv
 CRITICAL ERROR during report generation: [Errno 13] Permission denied: 'top_10_citations_plot.png'
