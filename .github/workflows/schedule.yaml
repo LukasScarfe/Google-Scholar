@@ -3,7 +3,7 @@ name: Daily Google Scholar Scrape
 on:
   # Triggers the workflow every day at 14:00 UTC (roughly 7:00 AM PDT/PST)
   schedule:
-    - cron: '55 18 * * *'
+    - cron: '59 18 * * *'
   # Allows manual triggering from the Actions tab in GitHub
   workflow_dispatch:
 
