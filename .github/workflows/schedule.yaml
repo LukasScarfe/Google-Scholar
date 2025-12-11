@@ -13,19 +13,22 @@ jobs:
 
     steps:
 
-      -steps:
-      - uses: actions/checkout@v5
-
-      - name: "Set up Python"
-        uses: actions/setup-python@v6
-        with:
-          python-version-file: "pyproject.toml"
-
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
+      - name: Set up Python
+        run: uv python install
+
       - name: ⬇️ Checkout code
         uses: actions/checkout@v4
+
+      - name: 📦 Install uv globally
+        # Install the uv package so it can be called in the next step
+        run: pip install uv
+
+      - name: 📦 Install dependencies (using uv)
+        run: |
+          uv sync
 
       - name: 🚀 Run the scraper script
         # This generates citations_history.csv
