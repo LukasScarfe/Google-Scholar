@@ -1,9 +1,20 @@
-Resolved 68 packages in 0.83ms
-Audited 64 packages in 0.90ms
-Successfully created WIDE format file: citations_wide_format.csv
-CRITICAL ERROR during report generation: [Errno 13] Permission denied: 'top_10_citations_plot.png'
-[master e442c9c] Ran the code
- 2 files changed, 2 insertions(+), 2 deletions(-)
-To https://github.com/LukasScarfe/Google-Scholar.git
-   8b153ce..e442c9c  master -> master
 Already up to date.
+Resolved 68 packages in 2ms
+Audited 64 packages in 1ms
+Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
+Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
+Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
+Getting Data for Arrays of functionalized graphene chemiresistors for selective sensing of volatile organic compounds
+Getting Data for Predicting atmospheric turbulence for secure quantum communications in free space
+Getting Data for High-dimensional quantum key distribution with Qubit-like states
+Getting Data for Spatial-Mode Quantum Cryptography in a 545-Dimensional Hilbert Space
+Getting Data for High-dimensional programmable photonic circuits with structured media
+Getting Data for Investigating the performance of adaptive optics on different bases of spatial modes in turbulent channels
+Getting Data for Programmable photonic quantum walks on lattices with cyclic, toroidal, and cylindrical topology
+Getting Data for Intraoperative neural monitoring system utilizing wavelet-based event detection
+Getting Data for Intraoperative neural monitoring method
+Getting Data for Intraoperative neural monitoring method utilizing wavelet-based event detection
+Getting Data for Intraoperative neural monitoring method with statistical confidence determination
+Successfully appended 14 records to LONG format file: citations_history.csv
+CRITICAL ERROR during file creation: Index contains duplicate entries, cannot reshape
+CRITICAL ERROR during report generation: 'NoneType' object has no attribute 'columns'
