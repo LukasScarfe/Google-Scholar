@@ -1,6 +1,74 @@
 Already up to date.
-Resolved 68 packages in 0.67ms
-Audited 64 packages in 0.76ms
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 68 packages in 47ms
+Installed 64 packages in 283ms
+ + alabaster==1.0.0
+ + anyio==4.12.0
+ + arrow==1.4.0
+ + attrs==25.4.0
+ + babel==2.17.0
+ + beautifulsoup4==4.14.3
+ + bibtexparser==1.4.3
+ + certifi==2025.11.12
+ + charset-normalizer==3.4.4
+ + contourpy==1.3.3
+ + cycler==0.12.1
+ + deprecated==1.3.1
+ + docutils==0.21.2
+ + fake-useragent==2.2.0
+ + fonttools==4.61.0
+ + free-proxy==1.1.3
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.26.0
+ + idna==3.11
+ + imagesize==1.4.1
+ + jinja2==3.1.6
+ + kiwisolver==1.4.9
+ + lxml==6.0.2
+ + markupsafe==3.0.3
+ + matplotlib==3.10.8
+ + numpy==2.3.5
+ + outcome==1.3.0.post0
+ + packaging==25.0
+ + pandas==2.3.3
+ + pillow==12.0.0
+ + pygments==2.19.2
+ + pyparsing==3.2.5
+ + pysocks==1.7.1
+ + python-dateutil==2.9.0.post0
+ + python-dotenv==1.2.1
+ + pytz==2025.2
+ + requests==2.32.5
+ + roman-numerals-py==3.1.0
+ + scholarly==1.7.11
+ + seaborn==0.13.2
+ + selenium==4.39.0
+ + six==1.17.0
+ + sniffio==1.3.1
+ + snowballstemmer==3.0.1
+ + sortedcontainers==2.4.0
+ + soupsieve==2.8
+ + sphinx==8.2.3
+ + sphinx-rtd-theme==3.0.2
+ + sphinxcontrib-applehelp==2.0.0
+ + sphinxcontrib-devhelp==2.0.0
+ + sphinxcontrib-htmlhelp==2.1.0
+ + sphinxcontrib-jquery==4.1
+ + sphinxcontrib-jsmath==1.0.1
+ + sphinxcontrib-qthelp==2.0.0
+ + sphinxcontrib-serializinghtml==2.0.0
+ + trio==0.32.0
+ + trio-websocket==0.12.2
+ + typing-extensions==4.15.0
+ + tzdata==2025.2
+ + urllib3==2.6.2
+ + websocket-client==1.9.0
+ + wrapt==2.0.1
+ + wsproto==1.3.2
+/home/lukas/Documents/code_to_run/Google-Scholar/.venv/lib/python3.12/site-packages/scholarly/_scholarly.py:312: SyntaxWarning: invalid escape sequence '\d'
+  m = re.search("cites=[\d+,]*", object["citedby_url"])
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
@@ -16,5 +84,5 @@ Getting Data for Intraoperative neural monitoring method
 Getting Data for Intraoperative neural monitoring method utilizing wavelet-based event detection
 Getting Data for Intraoperative neural monitoring method with statistical confidence determination
 Successfully appended 14 records to LONG format file: citations_history.csv
-CRITICAL ERROR during file creation: Index contains duplicate entries, cannot reshape
-CRITICAL ERROR during report generation: 'NoneType' object has no attribute 'columns'
+Successfully created WIDE format file: citations_wide_format.csv
+Successfully saved beautiful citation plot to top_10_citations_plot.png
