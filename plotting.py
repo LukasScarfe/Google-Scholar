@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns 
 import os
 from datetime import date
+from matplotlib.ticker import MaxNLocator
 
 # --- Configuration (Must match scrape.py) ---
 CSV_FILE = "citations_history.csv"
@@ -96,6 +97,10 @@ def generate_reports(df_wide):
         # Clean up the X-axis ticks
         plt.xticks(rotation=45, ha='right', fontsize=10) 
         plt.yticks(fontsize=10)
+        
+        # Set y-axis to only show integer values
+        ax = plt.gca()
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
         # Remove the top and right spines (border lines) for a cleaner look
         sns.despine(left=True)
@@ -111,6 +116,66 @@ def generate_reports(df_wide):
         plt.close()
 
         print(f"Successfully saved beautiful citation plot to {PLOT_FILE}")
+
+        # --- C. Generate Cumulative Citations Plot ---
+        # Calculate cumulative citations per date (sum across all papers)
+        df_cumulative = df_wide.T
+        df_cumulative = df_cumulative.fillna(0)
+        df_cumulative['Cumulative Citations'] = df_cumulative.sum(axis=1)
+        
+        # Create the cumulative plot with matching style
+        plt.figure(figsize=(16, 6))
+        
+        plt.plot(
+            range(len(df_cumulative)),
+            df_cumulative['Cumulative Citations'].values,
+            marker='o',
+            linestyle='-',
+            linewidth=2.5,
+            color='#440154',  # Dark purple from viridis
+            markerfacecolor='#FDE724',  # Yellow from viridis
+            markersize=8
+        )
+        
+        # Add Labels and Formatting (matching the top 10 plot style)
+        plt.title(
+            f'Lukas Scarfe Cumulative Citations Over Time',
+            fontsize=18,
+            fontweight='bold',
+            pad=20
+        )
+        
+        plt.xlabel('Date', fontsize=14)
+        plt.ylabel('Cumulative Citations', fontsize=14)
+        
+        # Set X-axis ticks with dates
+        plt.xticks(
+            range(len(df_cumulative)),
+            df_cumulative.index,
+            rotation=45,
+            ha='right',
+            fontsize=10
+        )
+        plt.yticks(fontsize=10)
+        
+        # Set y-axis to only show integer values
+        ax = plt.gca()
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+        
+        # Remove the top and right spines
+        sns.despine(left=True)
+        
+        # Add a light horizontal grid for easier tracking
+        plt.grid(axis='y', linestyle=':', alpha=0.7)
+        
+        plt.tight_layout()
+        
+        # Save cumulative plot
+        CUMULATIVE_PLOT_FILE = "cumulative_citations_plot.png"
+        plt.savefig(CUMULATIVE_PLOT_FILE, dpi=300)
+        plt.close()
+        
+        print(f"Successfully saved cumulative citation plot to {CUMULATIVE_PLOT_FILE}")
 
     except Exception as e:
         print(f"CRITICAL ERROR during report generation: {e}")
