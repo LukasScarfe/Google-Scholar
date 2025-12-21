@@ -18,3 +18,7 @@ Getting Data for Intraoperative neural monitoring method with statistical confid
 Successfully appended 14 records to LONG format file: citations_history.csv
 Successfully created WIDE format file: citations_wide_format.csv
 Successfully saved beautiful citation plot to top_10_citations_plot.png
+[master 42d3b29] Ran the code
+ 4 files changed, 31 insertions(+), 17 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   6f7affe..42d3b29  master -> master
