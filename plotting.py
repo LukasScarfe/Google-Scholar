@@ -66,13 +66,25 @@ def generate_reports(df_wide):
         # Create the plot
         plt.figure(figsize=(16, 6)) 
 
-        # Plotting df_plot ensures only the 10 columns (papers) are drawn.
-        df_plot.plot(
-            marker='o', 
-            linestyle='-',
-            linewidth=2,
-            colormap='viridis' 
-        )
+        # Define distinct markers and line styles for each paper
+        markers = ['o', 's', '^', 'D', 'v', 'p', '*', 'h', 'X', 'P']
+        linestyles = ['-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--']
+        
+        # Get a color palette with 10 distinct colors
+        colors = sns.color_palette('viridis', n_colors=10)
+        
+        # Plot each column manually to apply distinct markers and line styles
+        for idx, (col, marker, linestyle, color) in enumerate(zip(df_plot.columns, markers, linestyles, colors)):
+            plt.plot(
+                df_plot.index,
+                df_plot[col],
+                marker=marker,
+                linestyle=linestyle,
+                linewidth=2,
+                markersize=8,
+                label=col,
+                color=color
+            )
 
         # Add Labels and Formatting
         plt.title(
