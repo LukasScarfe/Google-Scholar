@@ -1,6 +1,6 @@
 Already up to date.
-Resolved 68 packages in 160ms
-Audited 64 packages in 27ms
+Resolved 68 packages in 156ms
+Audited 64 packages in 33ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
@@ -18,7 +18,4 @@ Getting Data for Intraoperative neural monitoring method with statistical confid
 Successfully appended 14 records to LONG format file: citations_history.csv
 Successfully created WIDE format file: citations_wide_format.csv
 Successfully saved beautiful citation plot to top_10_citations_plot.png
-[master 42d3b29] Ran the code
- 4 files changed, 31 insertions(+), 17 deletions(-)
-To https://github.com/LukasScarfe/Google-Scholar.git
-   6f7affe..42d3b29  master -> master
+Successfully saved cumulative citation plot to cumulative_citations_plot.png
