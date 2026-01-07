@@ -4,8 +4,10 @@ import seaborn as sns
 import os
 from datetime import date
 from matplotlib.ticker import MaxNLocator
-
 import logging
+import matplotlib.font_manager as fm
+
+# Silence font warnings
 logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
 
 # --- Configuration ---
@@ -14,6 +16,7 @@ WIDE_CSV_FILE = "citations_wide_format.csv"
 PLOT_FILE = "top_10_citations_plot.png"
 CUMULATIVE_PLOT_FILE = "cumulative_citations_plot.png"
 XKCD_PLOT_FILE = "cumulative_citations_xkcd.png"
+XKCD_TOP_5_FILE = "top_5_citations_xkcd.png"
 # ---------------------
 
 def create_wide_csv():
@@ -22,148 +25,125 @@ def create_wide_csv():
         return None
 
     try:
-        # Load the full, long-format history file
         df_long = pd.read_csv(CSV_FILE)
         df_long['Date'] = df_long['Date'].astype(str)
-        
-        # --- A. Create WIDE Format File ---
-        df_wide = df_long.pivot(
-            index='Title',
-            columns='Date', 
-            values='Citations'
-        )
+        df_wide = df_long.pivot(index='Title', columns='Date', values='Citations')
         df_wide.to_csv(WIDE_CSV_FILE)
         print(f"Successfully created WIDE format file: {WIDE_CSV_FILE}")
         return df_wide
-
     except Exception as e:
         print(f"CRITICAL ERROR during file creation: {e}")
         return None
 
+def get_best_xkcd_font():
+    """Returns the best available hand-drawn font name."""
+    available_fonts = [f.name for f in fm.fontManager.ttflist]
+    for f in ["Humor Sans", "Comic Neue", "xkcd", "Comic Sans MS"]:
+        if f in available_fonts:
+            return f
+    return "sans-serif"
+
 def generate_xkcd_cumulative_plot(df_cumulative):
-    """
-    Generates a fun, hand-drawn style plot of cumulative citations.
-    """
     try:
-        # Use the xkcd context manager for the 'hand-drawn' look
-        # This keeps the sketchy style isolated to this one plot
+        chosen_font = get_best_xkcd_font()
         with plt.xkcd():
+            plt.rcParams.update({'font.family': chosen_font})
             plt.figure(figsize=(12, 6))
-            
-            # Plot the data
-            plt.plot(
-                range(len(df_cumulative)), 
-                df_cumulative['Cumulative Citations'].values, 
-                color='#007400', 
-                linewidth=5
-            )
-            
-            # Add titles and labels in the characteristic 'all caps' style
+            plt.plot(range(len(df_cumulative)), df_cumulative['Cumulative Citations'].values, color='#007400', linewidth=5)
             plt.title('LUKAS SCARFE: TOTAL CITATIONS', fontsize=25)
-
-            # Set X-axis ticks
-            plt.xticks(
-                range(len(df_cumulative)), 
-                df_cumulative.index, 
-                rotation=45, 
-                ha='right'
-            )
-
-
-
+            plt.xticks(range(len(df_cumulative)), df_cumulative.index, rotation=45, ha='right')
             plt.tight_layout()
             plt.savefig(XKCD_PLOT_FILE, dpi=300)
             plt.close()
-            print(f"Successfully saved XKCD-style plot to {XKCD_PLOT_FILE}")
-
+            print(f"Successfully saved XKCD-style cumulative plot to {XKCD_PLOT_FILE}")
     except Exception as e:
-        print(f"Error generating XKCD plot: {e}")
+        print(f"Error generating XKCD cumulative plot: {e}")
+
+def generate_xkcd_top_5_plot(df_wide):
+    """Generates an XKCD-style plot for the top 5 papers."""
+    try:
+        chosen_font = get_best_xkcd_font()
+        last_date = df_wide.columns[-1]
+        df_top_5 = df_wide.sort_values(by=last_date, ascending=False).head(5)
+        df_plot = df_top_5.T.fillna(0)
+        
+        # Format titles: Get first 5 words
+        new_column_names = []
+        for col in df_plot.columns:
+            words = col.split()
+            short_name = " ".join(words[:5])
+            if len(words) > 5:
+                short_name += "..."
+            new_column_names.append(short_name)
+        
+        df_plot.columns = new_column_names
+
+        with plt.xkcd():
+            plt.rcParams.update({'font.family': chosen_font})
+            plt.figure(figsize=(14, 8)) # Increased size for better legend fit
+            
+            colors = ['black', 'red', 'blue', 'green', 'purple']
+            
+            for i, col in enumerate(df_plot.columns):
+                plt.plot(range(len(df_plot)), df_plot[col], label=col, linewidth=3, color=colors[i % len(colors)])
+
+            plt.title('TOP 5 MOST CITED PAPERS', fontsize=22)
+            plt.xticks(range(len(df_plot)), df_plot.index, rotation=45, ha='right')
+            plt.ylabel('CITATIONS')
+            
+            # Larger legend placed slightly outside to avoid overlapping lines
+            plt.legend(loc='upper left', fontsize=12, bbox_to_anchor=(0.01, 0.85), frameon=True)
+            
+            plt.annotate('THE HEAVY HITTERS', xy=(len(df_plot)-1, df_plot.iloc[-1].max()), 
+                         xytext=(len(df_plot)-5, df_plot.iloc[-1].max() + 5),
+                         arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=-0.2'))
+
+            plt.tight_layout()
+            plt.savefig(XKCD_TOP_5_FILE, dpi=300)
+            plt.close()
+            print(f"Successfully saved XKCD-style Top 5 plot to {XKCD_TOP_5_FILE}")
+    except Exception as e:
+        print(f"Error generating XKCD Top 5 plot: {e}")
 
 def generate_reports(df_wide):
-    if df_wide is None:
-        return
+    if df_wide is None: return
     
     try:
-        # --- B. Generate Top 10 Plot (Professional Style) ---
+        # --- Professional Plots ---
         sns.set_theme(style="whitegrid") 
-
         last_date_column = df_wide.columns[-1] 
         df_sorted = df_wide.sort_values(by=last_date_column, ascending=False)
         df_top_10 = df_sorted.head(10)
-
-        df_plot = df_top_10.T 
-        df_plot = df_plot.fillna(0) 
+        df_plot = df_top_10.T.fillna(0)
         df_plot.columns = [col[:25] for col in df_plot.columns]
 
+        # Top 10 Prof. Plot
         plt.figure(figsize=(16, 6)) 
-        markers = ['o', 's', '^', 'D', 'v', 'p', '*', 'h', 'X', 'P']
-        linestyles = ['-', '--', '-.', ':', '-', '--', '-.', ':', '-', '--']
         colors = sns.color_palette('viridis', n_colors=10)
-        
-        for idx, (col, marker, linestyle, color) in enumerate(zip(df_plot.columns, markers, linestyles, colors)):
-            plt.plot(
-                df_plot.index,
-                df_plot[col],
-                marker=marker,
-                linestyle=linestyle,
-                linewidth=2,
-                markersize=8,
-                label=col,
-                color=color
-            )
-
-        plt.title('Lukas Scarfe Citations', fontsize=18, fontweight='bold', pad=20)
-        plt.xlabel('Date', fontsize=14)
-        plt.ylabel('Citations', fontsize=14)
-        plt.legend(bbox_to_anchor=(0.05, 0.95), loc='upper left', fontsize=6, frameon=True, shadow=True)
-        plt.xticks(rotation=45, ha='right', fontsize=10) 
-        plt.yticks(fontsize=10)
-        
-        ax = plt.gca()
-        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-        sns.despine(left=True)
-        plt.grid(axis='y', linestyle=':', alpha=0.7) 
-
+        for idx, (col, color) in enumerate(zip(df_plot.columns, colors)):
+            plt.plot(df_plot.index, df_plot[col], marker='o', linewidth=2, label=col, color=color)
+        plt.title('Lukas Scarfe Citations by Paper', fontsize=18, fontweight='bold', pad=20)
+        plt.legend(bbox_to_anchor=(0.05, 0.9), loc='upper left', fontsize=6, frameon=True, shadow=True)
+        plt.xticks(rotation=45, ha='right')
+        plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
         plt.tight_layout()
         plt.savefig(PLOT_FILE, dpi=300) 
         plt.close()
-        print(f"Successfully saved beautiful citation plot to {PLOT_FILE}")
 
-        # --- C. Generate Cumulative Citations Plot ---
-        df_cumulative = df_wide.T
-        df_cumulative = df_cumulative.fillna(0)
+        # Cumulative Prof. Plot
+        df_cumulative = df_wide.T.fillna(0)
         df_cumulative['Cumulative Citations'] = df_cumulative.sum(axis=1)
-        
         plt.figure(figsize=(16, 6))
-        plt.plot(
-            range(len(df_cumulative)),
-            df_cumulative['Cumulative Citations'].values,
-            marker='o',
-            linestyle='-',
-            linewidth=2.5,
-            color='#440154',
-            markerfacecolor='#FDE724',
-            markersize=8
-        )
-        
-        plt.title('Lukas Scarfe Cumulative Citations Over Time', fontsize=20, fontweight='bold', pad=20)
-        plt.xlabel('Date', fontsize=14)
-        plt.ylabel('Cumulative Citations', fontsize=14)
-        
-        plt.xticks(range(len(df_cumulative)), df_cumulative.index, rotation=45, ha='right', fontsize=10)
-        plt.yticks(fontsize=10)
-        ax = plt.gca()
-        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-        sns.despine(left=True)
-        
+        plt.plot(range(len(df_cumulative)), df_cumulative['Cumulative Citations'].values, marker='o', color='#440154')
+        plt.title('Lukas Scarfe Cumulative Citations Over Time', fontsize=20, fontweight='bold')
+        plt.xticks(range(len(df_cumulative)), df_cumulative.index, rotation=45, ha='right')
         plt.tight_layout()
         plt.savefig(CUMULATIVE_PLOT_FILE, dpi=300)
         plt.close()
-        print(f"Successfully saved cumulative citation plot to {CUMULATIVE_PLOT_FILE}")
 
-        # --- D. Generate XKCD Style Plot ---
-        # We pass the cumulative data we just calculated to the new function
+        # --- XKCD Plots ---
         generate_xkcd_cumulative_plot(df_cumulative)
+        generate_xkcd_top_5_plot(df_wide)
 
     except Exception as e:
         print(f"CRITICAL ERROR during report generation: {e}")
