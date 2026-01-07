@@ -54,12 +54,12 @@ def generate_xkcd_cumulative_plot(df_cumulative):
             plt.plot(
                 range(len(df_cumulative)), 
                 df_cumulative['Cumulative Citations'].values, 
-                color='black', 
-                linewidth=3,
+                color='#007400', 
+                linewidth=5
             )
             
             # Add titles and labels in the characteristic 'all caps' style
-            plt.title('LUKAS SCARFE: TOTAL CITATIONS', fontsize=20)
+            plt.title('LUKAS SCARFE: TOTAL CITATIONS', fontsize=25)
 
             # Set X-axis ticks
             plt.xticks(
@@ -70,8 +70,9 @@ def generate_xkcd_cumulative_plot(df_cumulative):
             )
 
 
+
             plt.tight_layout()
-            plt.savefig(XKCD_PLOT_FILE, dpi=150)
+            plt.savefig(XKCD_PLOT_FILE, dpi=300)
             plt.close()
             print(f"Successfully saved XKCD-style plot to {XKCD_PLOT_FILE}")
 
