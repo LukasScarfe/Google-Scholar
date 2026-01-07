@@ -4,6 +4,6 @@ Citation count is not an indicator of a good scientist or good science. It is, h
 
 
 Below we can see which papers are the most enjoyed 
-![Image](top_10_citations_plot.png)
+![Image](top_5_citations_xkcd.png)
 
 
