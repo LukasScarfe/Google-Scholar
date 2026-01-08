@@ -1,6 +1,6 @@
 Already up to date.
-Resolved 68 packages in 167ms
-Audited 64 packages in 30ms
+Resolved 68 packages in 193ms
+Audited 64 packages in 22ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
@@ -11,15 +11,12 @@ Getting Data for Spatial-Mode Quantum Cryptography in a 545-Dimensional Hilbert 
 Getting Data for Investigating the performance of adaptive optics on different bases of spatial modes in turbulent channels
 Getting Data for Programmable photonic quantum walks on lattices with cyclic, toroidal, and cylindrical topology
 Getting Data for High-dimensional programmable photonic circuits with structured media
+Getting Data for Compact and programmable large-scale optical processor in free space
 Getting Data for Intraoperative neural monitoring system utilizing wavelet-based event detection
 Getting Data for Intraoperative neural monitoring method
 Getting Data for Intraoperative neural monitoring method utilizing wavelet-based event detection
 Getting Data for Intraoperative neural monitoring method with statistical confidence determination
-Successfully appended 14 records to LONG format file: citations_history.csv
+Successfully appended 15 records to LONG format file: citations_history.csv
 Successfully created WIDE format file: citations_wide_format.csv
-Successfully saved beautiful citation plot to top_10_citations_plot.png
-Successfully saved cumulative citation plot to cumulative_citations_plot.png
-[master c061e18] Ran the code
- 5 files changed, 31 insertions(+), 17 deletions(-)
-To https://github.com/LukasScarfe/Google-Scholar.git
-   075d96e..c061e18  master -> master
+Successfully saved XKCD-style cumulative plot to cumulative_citations_xkcd.png
+Successfully saved XKCD-style Top 5 plot to top_5_citations_xkcd.png
