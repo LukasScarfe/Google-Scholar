@@ -19,3 +19,7 @@ Successfully appended 14 records to LONG format file: citations_history.csv
 Successfully created WIDE format file: citations_wide_format.csv
 Successfully saved beautiful citation plot to top_10_citations_plot.png
 Successfully saved cumulative citation plot to cumulative_citations_plot.png
+[master c061e18] Ran the code
+ 5 files changed, 31 insertions(+), 17 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   075d96e..c061e18  master -> master
