@@ -1,11 +1,6 @@
-From https://github.com/LukasScarfe/Google-Scholar
-   d4a5d04..0588ef8  master     -> origin/master
-Updating d4a5d04..0588ef8
-Fast-forward
- README.md | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-Resolved 68 packages in 196ms
-Audited 64 packages in 36ms
+Already up to date.
+Resolved 68 packages in 168ms
+Audited 64 packages in 34ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
