@@ -1,6 +1,23 @@
-Already up to date.
-Resolved 68 packages in 168ms
-Audited 64 packages in 34ms
+From https://github.com/LukasScarfe/Google-Scholar
+   43e4a7a..645ddfb  master     -> origin/master
+Updating 43e4a7a..645ddfb
+Fast-forward
+ cumulative_citations_plot.png | Bin 198343 -> 0 bytes
+ cumulative_citations_xkcd.png | Bin 370529 -> 400890 bytes
+ plotting.py                   | 245 +++++++++++++++++++-----------------------
+ pyproject.toml                |   1 +
+ top_10_citations_plot.png     | Bin 275735 -> 0 bytes
+ top_5_citations_xkcd.png      | Bin 561713 -> 491989 bytes
+ uv.lock                       |  63 +++++++++++
+ 7 files changed, 173 insertions(+), 136 deletions(-)
+ delete mode 100644 cumulative_citations_plot.png
+ delete mode 100644 top_10_citations_plot.png
+Resolved 69 packages in 173ms
+Downloading scipy (33.4MiB)
+ Downloaded scipy
+Prepared 1 package in 799ms
+Installed 1 package in 20ms
+ + scipy==1.17.0
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
@@ -17,6 +34,5 @@ Getting Data for Intraoperative neural monitoring method
 Getting Data for Intraoperative neural monitoring method utilizing wavelet-based event detection
 Getting Data for Intraoperative neural monitoring method with statistical confidence determination
 Successfully appended 15 records to LONG format file: citations_history.csv
-Successfully created WIDE format file: citations_wide_format.csv
-Successfully saved XKCD-style cumulative plot to cumulative_citations_xkcd.png
-Successfully saved XKCD-style Top 5 plot to top_5_citations_xkcd.png
+INFO: Generating matching, smoothed XKCD reports...
+INFO: Done!
