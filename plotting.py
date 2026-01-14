@@ -60,14 +60,21 @@ def smooth_monotonic(x, y):
     return x_new, pchip(x_new)
 
 def add_custom_grids(ax, x_labels, grid_color):
-    """Adds theme-colored y-grid and vertical lines for the 1st and 15th."""
+    """Adds theme-colored y-grid and vertical lines for the 1st and 15th.
+    Returns the indices where vertical lines were added.
+    """
     ax.grid(axis='y', color=grid_color, linestyle='--', linewidth=1, zorder=0)
     ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     
+    grid_indices = []
     for i, date in enumerate(x_labels):
+        # Extract the day part from the date string (assumes YYYY-MM-DD)
         day = date.split('-')[-1].zfill(2)
         if day == '01' or day == '15':
             ax.axvline(x=i, color=grid_color, linestyle='--', linewidth=1, zorder=0)
+            grid_indices.append(i)
+            
+    return grid_indices
 
 def clean_plot_elements(fig):
     """Removes path effects (white halos) and legend borders."""
@@ -115,12 +122,16 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
         x_smooth, y_smooth = smooth_monotonic(x_vals, df_cumulative.values)
         
         ax.plot(x_smooth, y_smooth, linewidth=6, zorder=3)
-        add_custom_grids(ax, df_cumulative.index, config['grid'])
+        grid_indices =add_custom_grids(ax, df_cumulative.index, config['grid'])
         
         ax.set_title('TOTAL CITATIONS', fontsize=22)
-        ax.set_xticks(list(x_vals))
-        ax.set_xticklabels(df_cumulative.index, rotation=45, ha='right')
-        ax.set_ylabel('CITATIONS')
+        ax.set_xticks(grid_indices)
+        ax.set_xticklabels([df_cumulative.index[i] for i in grid_indices], rotation=45, ha='right')
+        ax.set_ylabel('CITATIONS', fontsize=18)
+
+        for spine in ax.spines.values():
+            spine.set_color(config['edge'])
+            spine.set_linewidth(1.5) # Optional: make it slightly thicker
         
         clean_plot_elements(fig)
         plt.tight_layout()
@@ -136,12 +147,16 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
             x_smooth, y_smooth = smooth_monotonic(x_vals, y_values)
             
             ax.plot(x_smooth, y_smooth, linewidth=8, zorder=3)
-            add_custom_grids(ax, df_wide.columns, config['grid'])
+            grid_indices =add_custom_grids(ax, df_wide.columns, config['grid'])
             
-            ax.set_title(title.upper(), fontsize=18, wrap=True)
-            ax.set_xticks(list(x_vals))
-            ax.set_xticklabels(df_wide.columns, rotation=45, ha='right')
-            ax.set_ylabel('CITATIONS')
+            ax.set_title(title.upper(), fontsize=22, wrap=True)
+            ax.set_xticks(grid_indices)
+            ax.set_xticklabels([df_cumulative.index[i] for i in grid_indices], rotation=45, ha='right')
+            ax.set_ylabel('CITATIONS', fontsize=18)
+
+            for spine in ax.spines.values():
+                spine.set_color(config['edge'])
+                spine.set_linewidth(1.5) # Optional: make it slightly thicker
             
             clean_plot_elements(fig)
             
