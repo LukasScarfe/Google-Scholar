@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-import matplotlib.ticker as mticker  # Added for integer locator
+import matplotlib.ticker as mticker
 import numpy as np
 from scipy.interpolate import PchipInterpolator
 
@@ -38,14 +38,10 @@ def get_xkcd_font():
     available = {f.name for f in fm.fontManager.ttflist}
     return next((f for f in candidates if f in available), "sans-serif")
 
-def format_title(title, max_words=4):
-    words = title.split()
-    return " ".join(words[:max_words]).upper() + ("..." if len(words) > max_words else "")
-
 def add_custom_grids(ax, x_labels):
     """Adds light grey y-grid and vertical lines for the 1st and 15th."""
     ax.grid(axis='y', color='lightgrey', linestyle='--', linewidth=1, zorder=0)
-    # Force Integer Ticks on Y Axis
+    # Force integer ticks for citation counts
     ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
     
     for i, date in enumerate(x_labels):
@@ -87,7 +83,6 @@ def plot_top_5_xkcd(df_wide):
         
         last_date = df_wide.columns[-1]
         top_5 = df_wide.sort_values(by=last_date, ascending=False).head(5).T.fillna(0)
-        top_5.columns = [format_title(col) for col in top_5.columns]
         
         x_values = np.array(range(len(top_5)))
         colours = plt.get_cmap('tab10').colors
@@ -95,7 +90,7 @@ def plot_top_5_xkcd(df_wide):
         for i, col in enumerate(top_5.columns):
             y_values = top_5[col].values
             x_smooth, y_smooth = smooth_monotonic(x_values, y_values)
-            ax.plot(x_smooth, y_smooth, label=col, linewidth=3, color=colours[i % len(colours)], zorder=3)
+            ax.plot(x_smooth, y_smooth, label=col[:40]+"...", linewidth=3, color=colours[i % len(colours)], zorder=3)
 
         add_custom_grids(ax, top_5.index)
         ax.set_title('THE TOP 5', fontsize=22)
@@ -124,27 +119,32 @@ def plot_individual_papers_xkcd(df_wide):
             ax.plot(x_smooth, y_smooth, color='green', linewidth=6, zorder=3)
             add_custom_grids(ax, df_wide.columns)
             
-            ax.set_title(title.upper(), fontsize=16, wrap=True)
+            # Title exactly as paper title
+            ax.set_title(title.upper(), fontsize=18, wrap=True)
             ax.set_xticks(list(x_values))
             ax.set_xticklabels(df_wide.columns, rotation=45, ha='right')
             ax.set_ylabel('CITATIONS')
             
-            safe_title = "".join([c for c in title if c.isalnum() or c in (' ', '-', '_')]).rstrip()
-            file_path = os.path.join(PATHS["individual_folder"], f"{safe_title[:50]}.png")
+            # --- Filename Logic ---
+            # Take first 5 words, join with underscore, remove special characters
+            words = title.split()[:5]
+            clean_words = ["".join(filter(str.isalnum, w)) for w in words]
+            filename = "_".join(clean_words) + ".png"
+            file_path = os.path.join(PATHS["individual_folder"], filename)
             
             plt.tight_layout()
             plt.savefig(file_path, dpi=DPI)
             plt.close()
-            logging.info(f"Generated plot: {safe_title[:30]}...")
+            logging.info(f"Saved: {filename}")
 
 def main():
     df_wide, df_cumulative = get_data()
     if df_wide is not None:
-        logging.info("Generating reports with integer y-axis...")
+        logging.info("Generating reports...")
         plot_cumulative_xkcd(df_cumulative)
         plot_top_5_xkcd(df_wide)
         plot_individual_papers_xkcd(df_wide)
-        logging.info("Done!")
+        logging.info("Process Complete!")
 
 if __name__ == "__main__":
     main()
