@@ -1,6 +1,43 @@
-Already up to date.
-Resolved 69 packages in 176ms
-Audited 65 packages in 29ms
+From https://github.com/LukasScarfe/Google-Scholar
+   31978ca..6d2df59  master     -> origin/master
+Updating 31978ca..6d2df59
+Fast-forward
+ cumulative_citations_xkcd.png                      | Bin 460811 -> 471746 bytes
+ ...s_of_functionalized_graphene_chemiresistors.png | Bin 0 -> 544733 bytes
+ ...Compact_and_programmable_largescale_optical.png | Bin 0 -> 439813 bytes
+ .../Fast_adaptive_optics_for_highdimensional.png   | Bin 0 -> 484114 bytes
+ .../Graphene_field_effect_transistors_a.png        | Bin 0 -> 511308 bytes
+ ...nsional_programmable_photonic_circuits_with.png | Bin 0 -> 515785 bytes
+ ...ghdimensional_quantum_key_distribution_with.png | Bin 0 -> 514552 bytes
+ .../Intraoperative_neural_monitoring_method.png    | Bin 0 -> 477899 bytes
+ ...perative_neural_monitoring_method_utilizing.png | Bin 0 -> 500480 bytes
+ ...ntraoperative_neural_monitoring_method_with.png | Bin 0 -> 505406 bytes
+ ...perative_neural_monitoring_system_utilizing.png | Bin 0 -> 505082 bytes
+ .../Investigating_the_performance_of_adaptive.png  | Bin 0 -> 457568 bytes
+ ...redicting_atmospheric_turbulence_for_secure.png | Bin 0 -> 473948 bytes
+ .../Programmable_photonic_quantum_walks_on.png     | Bin 0 -> 461501 bytes
+ .../SpatialMode_Quantum_Cryptography_in_a.png      | Bin 0 -> 520298 bytes
+ individual_plots/UV_illumination_as_a_method.png   | Bin 0 -> 485303 bytes
+ plotting.py                                        |  66 ++++++++++++++-------
+ top_5_citations_xkcd.png                           | Bin 571656 -> 602136 bytes
+ 18 files changed, 45 insertions(+), 21 deletions(-)
+ create mode 100644 individual_plots/Arrays_of_functionalized_graphene_chemiresistors.png
+ create mode 100644 individual_plots/Compact_and_programmable_largescale_optical.png
+ create mode 100644 individual_plots/Fast_adaptive_optics_for_highdimensional.png
+ create mode 100644 individual_plots/Graphene_field_effect_transistors_a.png
+ create mode 100644 individual_plots/Highdimensional_programmable_photonic_circuits_with.png
+ create mode 100644 individual_plots/Highdimensional_quantum_key_distribution_with.png
+ create mode 100644 individual_plots/Intraoperative_neural_monitoring_method.png
+ create mode 100644 individual_plots/Intraoperative_neural_monitoring_method_utilizing.png
+ create mode 100644 individual_plots/Intraoperative_neural_monitoring_method_with.png
+ create mode 100644 individual_plots/Intraoperative_neural_monitoring_system_utilizing.png
+ create mode 100644 individual_plots/Investigating_the_performance_of_adaptive.png
+ create mode 100644 individual_plots/Predicting_atmospheric_turbulence_for_secure.png
+ create mode 100644 individual_plots/Programmable_photonic_quantum_walks_on.png
+ create mode 100644 individual_plots/SpatialMode_Quantum_Cryptography_in_a.png
+ create mode 100644 individual_plots/UV_illumination_as_a_method.png
+Resolved 69 packages in 198ms
+Audited 65 packages in 36ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
@@ -17,5 +54,20 @@ Getting Data for Intraoperative neural monitoring method
 Getting Data for Intraoperative neural monitoring method utilizing wavelet-based event detection
 Getting Data for Intraoperative neural monitoring method with statistical confidence determination
 Successfully appended 15 records to LONG format file: citations_history.csv
-INFO: Generating matching, smoothed XKCD reports...
-INFO: Done!
+INFO: Generating reports...
+INFO: Saved: Arrays_of_functionalized_graphene_chemiresistors.png
+INFO: Saved: Compact_and_programmable_largescale_optical.png
+INFO: Saved: Fast_adaptive_optics_for_highdimensional.png
+INFO: Saved: Graphene_field_effect_transistors_a.png
+INFO: Saved: Highdimensional_programmable_photonic_circuits_with.png
+INFO: Saved: Highdimensional_quantum_key_distribution_with.png
+INFO: Saved: Intraoperative_neural_monitoring_method.png
+INFO: Saved: Intraoperative_neural_monitoring_method_utilizing.png
+INFO: Saved: Intraoperative_neural_monitoring_method_with.png
+INFO: Saved: Intraoperative_neural_monitoring_system_utilizing.png
+INFO: Saved: Investigating_the_performance_of_adaptive.png
+INFO: Saved: Predicting_atmospheric_turbulence_for_secure.png
+INFO: Saved: Programmable_photonic_quantum_walks_on.png
+INFO: Saved: SpatialMode_Quantum_Cryptography_in_a.png
+INFO: Saved: UV_illumination_as_a_method.png
+INFO: Process Complete!
