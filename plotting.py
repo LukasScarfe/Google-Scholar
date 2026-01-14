@@ -14,7 +14,7 @@ PATHS = {
     "input": "citations_history.csv",
     "wide_output": "citations_wide_format.csv",
 }
-FIG_SIZE = (12, 7)
+FIG_SIZE = (9, 6)
 DPI = 300
 
 THEMES = {
