@@ -124,10 +124,10 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
         ax.plot(x_smooth, y_smooth, linewidth=6, zorder=3)
         grid_indices =add_custom_grids(ax, df_cumulative.index, config['grid'])
         
-        ax.set_title('TOTAL CITATIONS', fontsize=22)
+        ax.set_title('TOTAL CITATIONS', fontsize=18)
         ax.set_xticks(grid_indices)
-        ax.set_xticklabels([df_cumulative.index[i] for i in grid_indices], rotation=45, ha='right')
-        ax.set_ylabel('CITATIONS', fontsize=18)
+        ax.set_xticklabels([df_cumulative.index[i] for i in grid_indices], rotation=45 , ha='right')
+        ax.set_ylabel('CITATIONS', fontsize=14)
 
         for spine in ax.spines.values():
             spine.set_color(config['edge'])
@@ -149,10 +149,10 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
             ax.plot(x_smooth, y_smooth, linewidth=8, zorder=3)
             grid_indices =add_custom_grids(ax, df_wide.columns, config['grid'])
             
-            ax.set_title(title.upper(), fontsize=22, wrap=True)
+            ax.set_title(title.upper(), fontsize=18, wrap=True)
             ax.set_xticks(grid_indices)
             ax.set_xticklabels([df_cumulative.index[i] for i in grid_indices], rotation=45, ha='right')
-            ax.set_ylabel('CITATIONS', fontsize=18)
+            ax.set_ylabel('CITATIONS', fontsize=14)
 
             for spine in ax.spines.values():
                 spine.set_color(config['edge'])
