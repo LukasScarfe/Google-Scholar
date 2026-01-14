@@ -23,12 +23,12 @@ THEMES = {
         'edge': '#000000', 'line': '#007F00', 'grid': '#dddddd'
     },
     'dark': {
-        'dir': 'plots/dark', 'bg': '#1D341E', 'txt': '#F8FCF8', 
-        'edge': '#1D341E', 'line': '#7F5DA2', 'grid': '#2A4D2C'
+        'dir': 'plots/dark', 'bg': '#1D341E', 'txt': '#75A978', 
+        'edge': '#75A978', 'line': '#7F5DA2', 'grid': '#75A978'
     },
     'light': {
         'dir': 'plots/light', 'bg': '#E5DBDB', 'txt': '#4A0F0F', 
-        'edge': '#4A0F0F', 'line': '#257D83', 'grid': '#BFCFCF'
+        'edge': '#4A0F0F', 'line': '#257D83', 'grid': '#4A0F0F'
     }
 }
 
@@ -95,9 +95,18 @@ def apply_theme_params(config):
 
 # --- Main Plotting Logic ---
 
-def generate_version(df_wide, df_cumulative, config):
+def generate_version(df_wide, df_cumulative, config, theme_name):
     os.makedirs(config['dir'], exist_ok=True)
     apply_theme_params(config)
+
+    # Determine transparency settings based on theme name
+    is_white = (theme_name == 'white')
+    save_args = {
+        'dpi': DPI,
+        'bbox_inches': 'tight',
+        'transparent': False if is_white else True,
+        'facecolor': config['bg'] if is_white else 'none'
+    }
 
     # 1. Total Citations Plot
     with plt.xkcd():
@@ -106,7 +115,7 @@ def generate_version(df_wide, df_cumulative, config):
         x_smooth, y_smooth = smooth_monotonic(x_vals, df_cumulative.values)
         
         ax.plot(x_smooth, y_smooth, linewidth=6, zorder=3)
-        add_custom_grids(ax, df_cumulative.index, config['grid']) # Grid added here
+        add_custom_grids(ax, df_cumulative.index, config['grid'])
         
         ax.set_title('TOTAL CITATIONS', fontsize=22)
         ax.set_xticks(list(x_vals))
@@ -115,14 +124,7 @@ def generate_version(df_wide, df_cumulative, config):
         
         clean_plot_elements(fig)
         plt.tight_layout()
-        plt.savefig(
-            f"{config['dir']}/total_citations.png", 
-            dpi=DPI, 
-            transparent=True,    # Makes the background see-through
-            facecolor='none',    # Ensures no background color is painted
-            bbox_inches='tight'
-        )
-        # plt.savefig(f"{config['dir']}/total_citations.png", dpi=DPI, facecolor=config['bg'])
+        plt.savefig(f"{config['dir']}/total_citations.png", **save_args)
         plt.close()
 
     # 2. Individual Paper Plots
@@ -134,7 +136,7 @@ def generate_version(df_wide, df_cumulative, config):
             x_smooth, y_smooth = smooth_monotonic(x_vals, y_values)
             
             ax.plot(x_smooth, y_smooth, linewidth=8, zorder=3)
-            add_custom_grids(ax, df_wide.columns, config['grid']) # Grid added here
+            add_custom_grids(ax, df_wide.columns, config['grid'])
             
             ax.set_title(title.upper(), fontsize=18, wrap=True)
             ax.set_xticks(list(x_vals))
@@ -148,14 +150,7 @@ def generate_version(df_wide, df_cumulative, config):
             filename = "_".join(clean_words) + ".png"
             
             plt.tight_layout()
-            plt.savefig(
-                os.path.join(config['dir'], filename), 
-                dpi=DPI, 
-                transparent=True,    # Makes the background see-through
-                facecolor='none',    # Ensures no background color is painted
-                bbox_inches='tight'
-            )
-            #plt.savefig(os.path.join(config['dir'], filename), dpi=DPI, facecolor=config['bg'])
+            plt.savefig(os.path.join(config['dir'], filename), **save_args)
             plt.close()
             logging.info(f"Saved {config['dir']}/{filename}")
 
@@ -164,7 +159,8 @@ def main():
     if df_wide is not None:
         for theme_name, config in THEMES.items():
             logging.info(f"Generating {theme_name.upper()} theme...")
-            generate_version(df_wide, df_cumulative, config)
+            # Pass theme_name as an argument here
+            generate_version(df_wide, df_cumulative, config, theme_name)
         logging.info("Process Complete!")
 
 if __name__ == "__main__":
