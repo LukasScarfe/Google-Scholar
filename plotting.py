@@ -28,7 +28,7 @@ THEMES = {
     },
     'light': {
         'dir': 'plots/light', 'bg': '#D5E4E4', 'txt': '#4A0F0F', 
-        'edge': '#4A0F0F', 'line': '#DC0000', 'grid': '#BFCFCF'
+        'edge': '#4A0F0F', 'line': '#257D83', 'grid': '#BFCFCF'
     }
 }
 
