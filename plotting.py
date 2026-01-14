@@ -115,7 +115,14 @@ def generate_version(df_wide, df_cumulative, config):
         
         clean_plot_elements(fig)
         plt.tight_layout()
-        plt.savefig(f"{config['dir']}/total_citations.png", dpi=DPI, facecolor=config['bg'])
+        plt.savefig(
+            f"{config['dir']}/total_citations.png", 
+            dpi=DPI, 
+            transparent=True,    # Makes the background see-through
+            facecolor='none',    # Ensures no background color is painted
+            bbox_inches='tight'
+        )
+        # plt.savefig(f"{config['dir']}/total_citations.png", dpi=DPI, facecolor=config['bg'])
         plt.close()
 
     # 2. Individual Paper Plots
@@ -141,7 +148,14 @@ def generate_version(df_wide, df_cumulative, config):
             filename = "_".join(clean_words) + ".png"
             
             plt.tight_layout()
-            plt.savefig(os.path.join(config['dir'], filename), dpi=DPI, facecolor=config['bg'])
+            plt.savefig(
+                os.path.join(config['dir'], filename), 
+                dpi=DPI, 
+                transparent=True,    # Makes the background see-through
+                facecolor='none',    # Ensures no background color is painted
+                bbox_inches='tight'
+            )
+            #plt.savefig(os.path.join(config['dir'], filename), dpi=DPI, facecolor=config['bg'])
             plt.close()
             logging.info(f"Saved {config['dir']}/{filename}")
 
