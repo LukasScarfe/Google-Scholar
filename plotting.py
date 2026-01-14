@@ -3,6 +3,7 @@ import logging
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import matplotlib.ticker as mticker  # Added for integer locator
 import numpy as np
 from scipy.interpolate import PchipInterpolator
 
@@ -11,10 +12,10 @@ PATHS = {
     "input": "citations_history.csv",
     "wide_output": "citations_wide_format.csv",
     "xkcd_cumulative": "cumulative_citations_xkcd.png",
-    "xkcd_top_5": "top_5_citations_xkcd.png"
+    "xkcd_top_5": "top_5_citations_xkcd.png",
+    "individual_folder": "individual_plots"
 }
 
-# Standardized Figure Size for GitHub Display
 FIG_SIZE = (12, 7)
 DPI = 300
 
@@ -44,13 +45,15 @@ def format_title(title, max_words=4):
 def add_custom_grids(ax, x_labels):
     """Adds light grey y-grid and vertical lines for the 1st and 15th."""
     ax.grid(axis='y', color='lightgrey', linestyle='--', linewidth=1, zorder=0)
+    # Force Integer Ticks on Y Axis
+    ax.yaxis.set_major_locator(mticker.MaxNLocator(integer=True))
+    
     for i, date in enumerate(x_labels):
         day = date.split('-')[-1].zfill(2)
         if day == '01' or day == '15':
             ax.axvline(x=i, color='lightgrey', linestyle='--', linewidth=1, zorder=0)
 
 def smooth_monotonic(x, y):
-    """Interpolates using PCHIP to prevent overshoot/oscillation."""
     x_new = np.linspace(min(x), max(x), 500)
     pchip = PchipInterpolator(x, y)
     y_smooth = pchip(x_new)
@@ -65,8 +68,7 @@ def plot_cumulative_xkcd(df_cumulative):
         y_values = df_cumulative.values
         x_smooth, y_smooth = smooth_monotonic(x_values, y_values)
         
-        ax.plot(x_smooth, y_smooth, color='green', linewidth=4, zorder=3)
-        
+        ax.plot(x_smooth, y_smooth, color='green', linewidth=6, zorder=3)
         add_custom_grids(ax, df_cumulative.index)
         
         ax.set_title('TOTAL CITATIONS', fontsize=22)
@@ -93,33 +95,55 @@ def plot_top_5_xkcd(df_wide):
         for i, col in enumerate(top_5.columns):
             y_values = top_5[col].values
             x_smooth, y_smooth = smooth_monotonic(x_values, y_values)
-            
-            ax.plot(x_smooth, y_smooth, 
-                    label=col, 
-                    linewidth=3, 
-                    color=colours[i % len(colours)],
-                    zorder=3)
+            ax.plot(x_smooth, y_smooth, label=col, linewidth=3, color=colours[i % len(colours)], zorder=3)
 
         add_custom_grids(ax, top_5.index)
-
         ax.set_title('THE TOP 5', fontsize=22)
         ax.set_xticks(list(x_values))
         ax.set_xticklabels(top_5.index, rotation=45, ha='right')
         ax.set_ylabel('CITATIONS')
-        
-        # Legend placement consistent and safe from curves
         ax.legend(loc='upper left', bbox_to_anchor=(0.02, 0.9), fontsize=10, frameon=True)
 
         plt.tight_layout()
         plt.savefig(PATHS["xkcd_top_5"], dpi=DPI)
         plt.close()
 
+def plot_individual_papers_xkcd(df_wide):
+    if not os.path.exists(PATHS["individual_folder"]):
+        os.makedirs(PATHS["individual_folder"])
+
+    with plt.xkcd():
+        plt.rcParams.update({'font.family': get_xkcd_font()})
+        
+        for title, row in df_wide.iterrows():
+            fig, ax = plt.subplots(figsize=FIG_SIZE)
+            y_values = row.fillna(0).values
+            x_values = np.array(range(len(y_values)))
+            x_smooth, y_smooth = smooth_monotonic(x_values, y_values)
+            
+            ax.plot(x_smooth, y_smooth, color='green', linewidth=6, zorder=3)
+            add_custom_grids(ax, df_wide.columns)
+            
+            ax.set_title(title.upper(), fontsize=16, wrap=True)
+            ax.set_xticks(list(x_values))
+            ax.set_xticklabels(df_wide.columns, rotation=45, ha='right')
+            ax.set_ylabel('CITATIONS')
+            
+            safe_title = "".join([c for c in title if c.isalnum() or c in (' ', '-', '_')]).rstrip()
+            file_path = os.path.join(PATHS["individual_folder"], f"{safe_title[:50]}.png")
+            
+            plt.tight_layout()
+            plt.savefig(file_path, dpi=DPI)
+            plt.close()
+            logging.info(f"Generated plot: {safe_title[:30]}...")
+
 def main():
     df_wide, df_cumulative = get_data()
     if df_wide is not None:
-        logging.info("Generating matching, smoothed XKCD reports...")
+        logging.info("Generating reports with integer y-axis...")
         plot_cumulative_xkcd(df_cumulative)
         plot_top_5_xkcd(df_wide)
+        plot_individual_papers_xkcd(df_wide)
         logging.info("Done!")
 
 if __name__ == "__main__":
