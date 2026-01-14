@@ -71,3 +71,7 @@ INFO: Saved: Programmable_photonic_quantum_walks_on.png
 INFO: Saved: SpatialMode_Quantum_Cryptography_in_a.png
 INFO: Saved: UV_illumination_as_a_method.png
 INFO: Process Complete!
+[master efd9612] Ran the code
+ 20 files changed, 88 insertions(+), 21 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   6d2df59..efd9612  master -> master
