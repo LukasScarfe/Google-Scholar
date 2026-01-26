@@ -1,10 +1,10 @@
 Already up to date.
-Resolved 69 packages in 110ms
-Audited 65 packages in 39ms
+Resolved 69 packages in 109ms
+Audited 65 packages in 20ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
-Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
 Getting Data for Arrays of functionalized graphene chemiresistors for selective sensing of volatile organic compounds
+Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
 Getting Data for Predicting atmospheric turbulence for secure quantum communications in free space
 Getting Data for High-dimensional quantum key distribution with Qubit-like states
 Getting Data for Spatial-Mode Quantum Cryptography in a 545-Dimensional Hilbert Space
