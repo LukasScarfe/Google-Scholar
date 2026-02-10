@@ -66,3 +66,7 @@ INFO: Saved plots/light/Programmable_photonic_quantum_walks_on.png
 INFO: Saved plots/light/SpatialMode_Quantum_Cryptography_in_a.png
 INFO: Saved plots/light/UV_illumination_as_a_method.png
 INFO: Process Complete!
+[master 01751f0] Ran the code
+ 51 files changed, 33 insertions(+), 18 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   9e20d69..01751f0  master -> master

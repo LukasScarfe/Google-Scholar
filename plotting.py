@@ -119,10 +119,43 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
     with plt.xkcd():
         fig, ax = plt.subplots(figsize=FIG_SIZE)
         x_vals = np.array(range(len(df_cumulative)))
-        x_smooth, y_smooth = smooth_monotonic(x_vals, df_cumulative.values)
+        y_vals = df_cumulative.values
         
+        # Smooth curve for the actual data
+        x_smooth, y_smooth = smooth_monotonic(x_vals, y_vals)
         ax.plot(x_smooth, y_smooth, linewidth=6, zorder=3)
-        grid_indices =add_custom_grids(ax, df_cumulative.index, config['grid'])
+
+        # --- Rate of Change Line & Text ---
+        x_start, x_end = x_vals[0], x_vals[-1]
+        y_start, y_end = y_vals[0], y_vals[-1]
+        
+        # Calculate citations per day
+        # Ensure we don't divide by zero if there's only one data point
+        days = x_end - x_start
+        rate = (y_end - y_start) / days if days > 0 else 0
+        
+        # Plot the dotted line
+        ax.plot([x_start, x_end], [y_start, y_end], 
+                color=config['line'],
+                linestyle=':', 
+                linewidth=1, 
+                zorder=2)
+
+        # Calculate midpoint for text placement
+        mid_x = (x_start + x_end) / 2
+        mid_y = (y_start + y_end) / 2
+        
+        # Add the text label just below the midpoint
+        ax.text(mid_x+0.5, mid_y, f'y={rate:.2f}x', 
+                color=config['line'],
+                fontsize=9,
+                ha='center', 
+                va='top', # 'top' alignment places the text *below* the coordinate
+                rotation=np.degrees(np.arctan2(FIG_SIZE[1],FIG_SIZE[0])-0.08), # Aligns text with line angle
+                rotation_mode='anchor')
+        # ---------------------------------------
+        
+        grid_indices = add_custom_grids(ax, df_cumulative.index, config['grid'])
         
         ax.set_title('TOTAL CITATIONS', fontsize=18)
         ax.set_xticks(grid_indices)
@@ -131,7 +164,7 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
 
         for spine in ax.spines.values():
             spine.set_color(config['edge'])
-            spine.set_linewidth(1.5) # Optional: make it slightly thicker
+            spine.set_linewidth(1.5)
         
         clean_plot_elements(fig)
         plt.tight_layout()
