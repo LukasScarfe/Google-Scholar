@@ -146,13 +146,14 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
         mid_y = (y_start + y_end) / 2
         
         # Add the text label just below the midpoint
-        ax.text(mid_x+0.5, mid_y, f'y={rate:.2f}x', 
+        ax.text(x_start+1, y_end*1.002, f'y={rate:.2f}x', 
                 color=config['line'],
-                fontsize=9,
+                fontsize=16,
                 ha='center', 
                 va='top', # 'top' alignment places the text *below* the coordinate
-                rotation=np.degrees(np.arctan2(FIG_SIZE[1],FIG_SIZE[0])-0.08), # Aligns text with line angle
-                rotation_mode='anchor')
+                # rotation=np.degrees(np.arctan2(FIG_SIZE[1],FIG_SIZE[0])-0.08), # Aligns text with line angle
+                # rotation_mode='anchor'
+                )
         # ---------------------------------------
         
         grid_indices = add_custom_grids(ax, df_cumulative.index, config['grid'])
