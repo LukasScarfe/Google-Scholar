@@ -1,14 +1,14 @@
 Already up to date.
-Resolved 69 packages in 96ms
-Audited 65 packages in 58ms
+Resolved 69 packages in 97ms
+Audited 65 packages in 49ms
 Getting Data for UV illumination as a method to improve the performance of gas sensors based on graphene field-effect transistors
 Getting Data for Fast adaptive optics for high-dimensional quantum communications in turbulent channels
 Getting Data for Arrays of functionalized graphene chemiresistors for selective sensing of volatile organic compounds
 Getting Data for Graphene field effect transistors: a sensitive platform for detecting sarin
 Getting Data for Predicting atmospheric turbulence for secure quantum communications in free space
+Getting Data for Investigating the performance of adaptive optics on different bases of spatial modes in turbulent channels
 Getting Data for High-dimensional quantum key distribution with Qubit-like states
 Getting Data for Quantum Key Distribution with Spatial Modes: From 360 to 5000-Dimensional Hilbert Space
-Getting Data for Investigating the performance of adaptive optics on different bases of spatial modes in turbulent channels
 Getting Data for Programmable photonic quantum walks on lattices with cyclic, toroidal, and cylindrical topology
 Getting Data for Compact and programmable large-scale optical processor in free space
 Getting Data for Intraoperative neural monitoring system utilizing wavelet-based event detection
