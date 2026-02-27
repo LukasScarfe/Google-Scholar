@@ -71,3 +71,7 @@ INFO: Saved plots/light/SpatialMode_Quantum_Cryptography_in_a.png
 INFO: Saved plots/light/Spatialmode_quantum_cryptography_in_a.png
 INFO: Saved plots/light/UV_illumination_as_a_method.png
 INFO: Process Complete!
+[master ea7bc4d] Ran the code
+ 57 files changed, 35 insertions(+), 21 deletions(-)
+To https://github.com/LukasScarfe/Google-Scholar.git
+   7aac93e..ea7bc4d  master -> master

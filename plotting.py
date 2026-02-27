@@ -146,7 +146,7 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
         mid_y = (y_start + y_end) / 2
         
         # Add the text label just below the midpoint
-        ax.text(x_start+0.75, y_end*1.002, f'y={rate:.2f}x', 
+        ax.text(x_end-0.75, y_end*1.022, f'y={rate:.2f}x', 
                 color=config['line'],
                 fontsize=16,
                 ha='center', 
