@@ -9,5 +9,11 @@ wheels/
 *.code-workspace
 logs.txt
 
+# Generated plots. These are NOT committed to master — every plot changes daily
+# (the date axis grows), so committing them here grew .git to 2.8 GB in 7 months.
+# They are published to the orphan `plots` branch instead, which is force-pushed
+# as a single parentless commit so plot history never accumulates. See cronjob.sh.
+plots/
+
 # Virtual environments
 .venv

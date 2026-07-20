@@ -1,7 +1,7 @@
 Citation count is not an indicator of a good scientist or good science. It is, however, a number and the monkey part of my brain likes to see numbers go up. It feels good to know that people are reading my papers and enjoying the work that I devote my time to.
 
 
-![Image](/plots//white/total_citations.png)
+![Total citations](https://raw.githubusercontent.com/LukasScarfe/Google-Scholar/plots-latest/white/total_citations.png)
 
 
 <!-- 1. [UV Illumination as a Method to Improve the Performance of Gas Sensors Based on Graphene Field-Effect Transistors](https://pubs.acs.org/doi/abs/10.1021/acssensors.1c01783)
