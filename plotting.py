@@ -149,14 +149,13 @@ def generate_version(df_wide, df_cumulative, config, theme_name):
         mid_x = (x_start + x_end) / 2
         mid_y = (y_start + y_end) / 2
         
-        # Add the text label just below the midpoint
-        ax.text(x_end-0.75, y_end*1.022, f'y={rate:.2f}x', 
+        # Add the rate label above the plot, level with the title
+        ax.text(1.0, 1.03, f'y={rate:.2f}x',
+                transform=ax.transAxes,
                 color=config['line'],
                 fontsize=16,
-                ha='center', 
-                va='top', # 'top' alignment places the text *below* the coordinate
-                # rotation=np.degrees(np.arctan2(FIG_SIZE[1],FIG_SIZE[0])-0.08), # Aligns text with line angle
-                # rotation_mode='anchor'
+                ha='right',
+                va='bottom',
                 )
         # ---------------------------------------
         
