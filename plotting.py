@@ -44,6 +44,10 @@ def get_data():
         return None, None
     df_long = pd.read_csv(PATHS["input"])
     df_long['Date'] = df_long['Date'].astype(str)
+    dupe_mask = df_long.duplicated(subset=['Title', 'Date'], keep='first')
+    if dupe_mask.any():
+        logging.warning(f"Dropping {dupe_mask.sum()} duplicate (Title, Date) rows, keeping first occurrence.")
+        df_long = df_long[~dupe_mask]
     df_wide = df_long.pivot(index='Title', columns='Date', values='Citations')
     df_wide.to_csv(PATHS["wide_output"])
     df_cumulative = df_wide.T.fillna(0).sum(axis=1)
